@@ -14,7 +14,7 @@ public class CubeDemo extends JComponent {
 	
 	protected void paintComponent(Graphics g) {
 		Graphics3D g3 = new Graphics3D(g);
-		g3.setStroke(new BasicStroke(10,CAP_ROUND, JOIN_ROUND,1,new float[]{ 25,40 },0));
+		g3.setStroke(new BasicStroke(10,1,1,1,new float[]{ 25,40 },0));
 		
 		double r = getHeight()*1.0/getWidth();
 		g3.viewport(0, 0, getWidth(), getHeight());
