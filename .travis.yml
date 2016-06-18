@@ -1,5 +1,12 @@
 language: java
+
 branches:
   only:
     - master
+
+after_success:
+  - deploy.sh
  
+env:
+  global:
+    - secure: "Y9nTx3xWSRwFhg/xlCuMQjgIQVBPscRReLWcOR6ajqZL49Ph5DK4EtvyXSyBOn+6rEw8zwlSFPEa+ROWa4xtDOasGepH3ht/IcGGjfjQrTDYQjWmMGwp+EAc5ngFpkDXkIiWPWT6GqMnSBnqT0jYoNuaBlvambp/aITFbNydnG5GmLgsXGIMit+I1zGZ3sTgeMaEXihFegCjHAhpFPDScq9IV7c69eLx1GOSXNDmLV3U7mSeB0/4ePzgKD6dgNir0Oivqp7nvW7SYlW1FKOz9F+4LaqyzzeUrZcjOrJ+3ysoNa4q5Nj8h+dW6Te1HKysDkB7MyFVtEf9pjORY4dEvPVwDStSCRm6qHukLVUoA5XeYNWgRc9lM+AC9EC5lrhANg3diePJdryU8Za2z2ZPESnFZgE0VQSKSk6LWNra9ibUzg5PQT1ULQl+wGdzt1NDyBcdQZOIMBZ8cJecxqfk6iOeAYaXKxg8miZ+pqk9dui8soZqjziLHWXoJk3rLHNd1TdzcpAbr28ZM9qrgsCz9iz43MjVh91RDR1yMfw6+fRkcHCNS9d1oURi8msEDwcVZnU0R5JmEHCEuZvxKi/H6F5iwEmPYOSVCaYBROA2P6RoM1UCrzBPVJ9SCUHXA0gn2kldy1qljbfDQAXs55eBmOSo/bDgNcEsnfiZPitE6kk="
