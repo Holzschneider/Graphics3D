@@ -1,6 +1,6 @@
 Graphics3D
 ==========
-*a lightweight extension to java.awt.Graphics2D featuring 3D transformations and primitives*
+*a lightweight extension to java.awt.Graphics2D featuring opengl style 3D transformations and primitives*
 
 
 In Short
