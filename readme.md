@@ -2,11 +2,13 @@ Graphics3D
 ==========
 *a lightweight extension to java.awt.Graphics2D featuring opengl style 3D transformations and primitives*
 
+Requires JDK 1.6, and soon-to-be-gone javax.vecmath dependency.
+ 
 
 In Short
 --------
 
-Imagine a JComponents's paintComponent method like this ...
+Imagine a suspiciously familiar looking JComponents's paintComponent method like this ...
 
 	protected void paintComponent(Graphics g) {
 		Graphics3D g3 = new Graphics3D(g);
@@ -50,6 +52,50 @@ Imagine a JComponents's paintComponent method like this ...
 <img src="doc/demo.gif" />
 
 
+Latest Release
+-------
+
+The current release 1.0.0. is the first to be considered finally stable with no changes made for a very long time.
+
+Releases are deployed automatically to the deploy branch of this github repostory. 
+To add a dependency on graphics3d using maven, modify your *repositories* section to include the git based repository.
+
+	<repositories>
+	 ...
+	  <repository>
+	    <id>git-holzschneider</id>
+	    <name>Holzschneider's Git based repo</name>
+	    <url>https://raw.githubusercontent.com/Holzschneider/graphics3d/deploy/</url>
+	  </repository>
+	...
+	</repositories>
+	
+and modify your *dependencies* section to include the graphics3d dependency
+ 
+	  <dependencies>
+	  ...
+	  	<dependency>
+	  		<groupId>de.dualuse.commons</groupId>
+	  		<artifactId>graphics3d</artifactId>
+	  		<version>LATEST</version>
+	  	</dependency>
+	  ...
+	  </dependencies>
+
+
+To add the repository and the dependency using gradle refer to this
+
+	repositories {
+	    maven {
+	        url "http://repo.mycompany.com/maven2"
+	    }
+	}
+
+and this
+
+	dependencies {
+	  compile 'de.dualuse.commons:graphics3d:1.0'
+	}
 
 
 
