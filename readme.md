@@ -87,7 +87,7 @@ To add the repository and the dependency using gradle refer to this
 
 	repositories {
 	    maven {
-	        url "http://repo.mycompany.com/maven2"
+	        url "https://raw.githubusercontent.com/Holzschneider/graphics3d/deploy/"
 	    }
 	}
 
