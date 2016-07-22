@@ -19,7 +19,7 @@ cd $HOME/deploy
 git config --global user.email "travis@travis-ci.org"
 git config --global user.name "travis-ci"
 
-git add .
+git add -A .
 git status
 git commit -m "travis"
 git push -f origin deploy
