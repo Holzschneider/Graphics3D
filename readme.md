@@ -63,9 +63,9 @@ To add a dependency on graphics3d using maven, modify your *repositories* sectio
 	<repositories>
 	 ...
 	  <repository>
-	    <id>git-holzschneider</id>
+	    <id>Graphics3D-Repository</id>
 	    <name>Holzschneider's Git based repo</name>
-	    <url>https://raw.githubusercontent.com/Holzschneider/graphics3d/deploy/</url>
+	    <url>https://raw.githubusercontent.com/Holzschneider/Graphics3D/deploy/</url>
 	  </repository>
 	...
 	</repositories>
@@ -76,7 +76,7 @@ and modify your *dependencies* section to include the graphics3d dependency
 	  ...
 	  	<dependency>
 	  		<groupId>de.dualuse.commons</groupId>
-	  		<artifactId>graphics3d</artifactId>
+	  		<artifactId>Graphics3D</artifactId>
 	  		<version>LATEST</version>
 	  	</dependency>
 	  ...
@@ -87,14 +87,14 @@ To add the repository and the dependency using gradle refer to this
 
 	repositories {
 	    maven {
-	        url "https://raw.githubusercontent.com/Holzschneider/graphics3d/deploy/"
+	        url "https://raw.githubusercontent.com/Holzschneider/Graphics3D/deploy/"
 	    }
 	}
 
 and this
 
 	dependencies {
-	  compile 'de.dualuse.commons:graphics3d:1.0'
+	  compile 'de.dualuse.commons:Graphics3D:1.0.+'
 	}
 
 
