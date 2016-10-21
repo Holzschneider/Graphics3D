@@ -8,7 +8,10 @@ find $HOME/deploy -name 'maven-metadata.xml' -exec sh -c 'mv -v "$0" "${0%.xml}-
 
 #use maven to package and install the artifact in the repository 
 mvn package
+mkdir target/sources
+mv target/*-sources.jar target/sources/
 mvn install:install-file -DpomFile=pom.xml -Dfile=$(ls target/*.jar) -DlocalRepositoryPath=$HOME/deploy
+mvn install:install-file -DpomFile=pom.xml -Dfile=$(ls target/sources/*-sources.jar) -DlocalRepositoryPath=$HOME/deploy -Dclassifier=sources
 
 #'convert' the repository back to be a maven repository
 find $HOME/deploy -name 'maven-metadata-local.xml' -exec sh -c 'mv -v "$0" "${0%-local.xml}.xml"' {} \;
