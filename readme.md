@@ -55,7 +55,7 @@ Imagine a suspiciously familiar looking JComponents's paintComponent method like
 Latest Release
 -------
 
-The current release 1.0.0. is the first to be considered finally stable with no changes made for a very long time.
+The current release 1.0.x. is the first to be considered finally stable with no changes made for a very long time.
 
 Releases are deployed automatically to the deploy branch of this github repostory. 
 To add a dependency on graphics3d using maven, modify your *repositories* section to include the git based repository.
@@ -75,7 +75,7 @@ and modify your *dependencies* section to include the graphics3d dependency
 	  <dependencies>
 	  ...
 	  	<dependency>
-	  		<groupId>de.dualuse.commons</groupId>
+	  		<groupId>de.dualuse</groupId>
 	  		<artifactId>Graphics3D</artifactId>
 	  		<version>LATEST</version>
 	  	</dependency>
@@ -94,7 +94,7 @@ To add the repository and the dependency using gradle refer to this
 and this
 
 	dependencies {
-	  compile 'de.dualuse.commons:Graphics3D:1.0.+'
+	  compile 'de.dualuse:Graphics3D:1.0.+'
 	}
 
 
