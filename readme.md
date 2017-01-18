@@ -2,7 +2,7 @@ Graphics3D
 ==========
 *a lightweight extension to java.awt.Graphics2D featuring opengl style 3D transformations and primitives*
 
-Requires JDK 1.6, and soon-to-be-gone javax.vecmath dependency.
+Requires JDK 1.6, and comes with soon-to-be-gone javax.vecmath dependency.
  
 
 In Short
@@ -63,21 +63,21 @@ To add a dependency on graphics3d using maven, modify your *repositories* sectio
 	<repositories>
 	 ...
 	  <repository>
-	    <id>Graphics3D-Repository</id>
-	    <name>Holzschneider's Git based repo</name>
-	    <url>https://raw.githubusercontent.com/Holzschneider/Graphics3D/deploy/</url>
+	    <id>dualuse repository</id>
+	    <name>dualuse's git based repo</name>
+	    <url>https://dualuse.github.io/maven/</url>
 	  </repository>
 	...
 	</repositories>
 	
-and modify your *dependencies* section to include the graphics3d dependency
+and modify your *dependencies* section to include the Graphics3d dependency
  
 	  <dependencies>
 	  ...
 	  	<dependency>
 	  		<groupId>de.dualuse</groupId>
 	  		<artifactId>Graphics3D</artifactId>
-	  		<version>LATEST</version>
+	  		<version>[1,)</version>
 	  	</dependency>
 	  ...
 	  </dependencies>
@@ -94,7 +94,7 @@ To add the repository and the dependency using gradle refer to this
 and this
 
 	dependencies {
-	  compile 'de.dualuse:Graphics3D:1.0.+'
+	  compile 'de.dualuse:Graphics3D:1.+'
 	}
 
 
