@@ -25,4 +25,4 @@ git config --global user.name "travis-ci"
 git add -A .
 git status
 git commit -m "travis"
-git push -f origin
+git push -f origin master
