@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.dualuse</groupId>
   <artifactId>Graphics3D</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
   <name>Graphics 3D</name>
   <build>
   		<sourceDirectory>src</sourceDirectory>
