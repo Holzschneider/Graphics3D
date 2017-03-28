@@ -12,6 +12,10 @@ public class CubeDemo extends JComponent {
 	private static final long serialVersionUID = 1L;
 	long start = System.nanoTime();
 	
+	
+	/**
+	 * super important improvement
+	 */
 	protected void paintComponent(Graphics g) {
 		Graphics3D g3 = new Graphics3D(g);
 		g3.setStroke(new BasicStroke(10,1,1,1,new float[]{ 25,40 },0));
