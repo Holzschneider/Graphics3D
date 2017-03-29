@@ -14,7 +14,7 @@ public class CubeDemo extends JComponent {
 	
 	
 	/**
-	 * super important improvement
+	 * super important improvement 
 	 */
 	protected void paintComponent(Graphics g) {
 		Graphics3D g3 = new Graphics3D(g);
