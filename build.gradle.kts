@@ -45,6 +45,26 @@ publishing {
             pom {
                 name.set("Graphics 3D")
                 description.set("A lightweight extension to java.awt.Graphics2D featuring OpenGL-style 3D transformations and primitives")
+
+                licenses {
+                    license {
+                        name = "GNU Lesser General Public License v3.0"
+                        url = "https://www.gnu.org/licenses/lgpl-3.0.txt"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "holzschneider"
+                        name = "Philipp Holzschneider"
+                        email = "philipp@covicon.de"
+                    }
+                }
+                scm {
+                    connection = "scm:git:git://example.com/my-library.git"
+                    developerConnection = "scm:git:ssh://example.com/my-library.git"
+                    url = "http://example.com/my-library/"
+                }
+            }
             }
         }
     }
