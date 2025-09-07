@@ -7,4 +7,5 @@ target
 .idea/
 gradle/
 build/
+gradlew
 gradlew.bat

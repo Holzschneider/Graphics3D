@@ -26,6 +26,6 @@ jobs:
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.CENTRAL_PASSWORD }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASS }}
-        run: ./gradlew --no-daemon publishToMavenCentral
+        run: ./gradle --no-daemon wrapper && ./gradlew --no-daemon publishToMavenCentral
       # If you enabled publishToMavenCentral(true), publication auto-releases.
       # Otherwise, log in to the Sonatype Central Portal and click "Publish".
