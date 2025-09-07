@@ -3,3 +3,9 @@ target
 .classpath
 .project
 .externalToolBuilders
+.gradle/
+.idea/
+gradle/
+build/
+gradlew
+gradlew.bat

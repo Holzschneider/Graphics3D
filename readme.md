@@ -99,3 +99,25 @@ and this
 
 
 
+
+
+
+Build and wrapper
+-----------------
+If you prefer not to keep Gradle wrapper scripts in VCS, this project provides a task to generate them on demand.
+
+1) Using a locally installed Gradle, run:
+
+    gradle createWrapper
+
+This will generate gradlew/gradlew.bat and gradle/wrapper files for Gradle 8.14.2.
+
+2) Then build with the wrapper:
+
+    ./gradlew build
+
+Alternatively, you can build directly with your local Gradle:
+
+    gradle build
+
+
