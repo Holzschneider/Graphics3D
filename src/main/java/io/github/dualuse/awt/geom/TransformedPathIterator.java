@@ -3,7 +3,7 @@ package io.github.dualuse.awt.geom;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 
-import javax.vecmath.Matrix4f;
+import io.github.dualuse.awt.math.Matrix4f;
 
 public 
 class TransformedPathIterator implements PathIterator {

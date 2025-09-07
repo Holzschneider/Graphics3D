@@ -2,7 +2,7 @@ package io.github.dualuse.awt;
 
 import io.github.dualuse.awt.geom.PrimitivePathIterator;
 
-import javax.vecmath.Matrix4f;
+import io.github.dualuse.awt.math.Matrix4f;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;

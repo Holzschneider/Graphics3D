@@ -1,7 +1,7 @@
 import io.github.dualuse.awt.TransformedShape;
 
 import javax.swing.*;
-import javax.vecmath.Matrix4f;
+import io.github.dualuse.awt.math.Matrix4f;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 

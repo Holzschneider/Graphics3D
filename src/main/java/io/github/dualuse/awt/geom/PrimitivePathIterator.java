@@ -1,14 +1,9 @@
 package io.github.dualuse.awt.geom;
 
-import io.github.dualuse.awt.Graphics3D;
-import io.github.dualuse.awt.event.EulerCameraMouseAdapter;
+import io.github.dualuse.awt.math.Matrix4f;
 
-import javax.swing.*;
-import javax.vecmath.Matrix4f;
-import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
-import java.awt.geom.Point2D;
 import java.util.Random;
 
 

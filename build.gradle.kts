@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "io.github.dualuse"
-version = "1.3.0"
+version = "1.4.0"
 
 description = "Graphics 3D"
 
@@ -21,7 +21,6 @@ repositories {
 }
 
 dependencies {
-    api("javax.vecmath:vecmath:1.5.2")
     testImplementation("junit:junit:4.13.2")
 }
 

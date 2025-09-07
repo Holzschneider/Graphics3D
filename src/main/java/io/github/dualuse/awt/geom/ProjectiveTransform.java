@@ -3,10 +3,10 @@ package io.github.dualuse.awt.geom;
 
 import io.github.dualuse.awt.TransformedShape;
 
-import javax.vecmath.Matrix4d;
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Vector4d;
-import javax.vecmath.Vector4f;
+import io.github.dualuse.awt.math.Matrix4d;
+import io.github.dualuse.awt.math.Matrix4f;
+import io.github.dualuse.awt.math.Vector4d;
+import io.github.dualuse.awt.math.Vector4f;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;

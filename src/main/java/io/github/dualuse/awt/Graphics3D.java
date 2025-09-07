@@ -4,10 +4,10 @@ package io.github.dualuse.awt;
 import io.github.dualuse.awt.geom.PrimitivePathIterator;
 import io.github.dualuse.awt.geom.ProjectiveTransform;
 
-import javax.vecmath.AxisAngle4d;
-import javax.vecmath.Matrix4d;
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Vector4f;
+import io.github.dualuse.awt.math.AxisAngle4d;
+import io.github.dualuse.awt.math.Matrix4d;
+import io.github.dualuse.awt.math.Matrix4f;
+import io.github.dualuse.awt.math.Vector4f;
 import java.awt.*;
 import java.awt.RenderingHints.Key;
 import java.awt.font.FontRenderContext;

@@ -3,14 +3,10 @@ package io.github.dualuse.awt;
 
 import io.github.dualuse.awt.geom.TransformedPathIterator;
 
-import javax.swing.*;
-import javax.vecmath.Matrix4d;
-import javax.vecmath.Matrix4f;
+import io.github.dualuse.awt.math.Matrix4d;
+import io.github.dualuse.awt.math.Matrix4f;
 import java.awt.*;
 import java.awt.geom.*;
-
-import static io.github.dualuse.awt.Graphics3D.createMatrixWithFrustum;
-import static io.github.dualuse.awt.Graphics3D.createMatrixWithViewport;
 
 
 public class TransformedShape implements Shape {
