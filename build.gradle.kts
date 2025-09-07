@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "de.dualuse"
-version = "1.1.2"
+version = "1.2.0"
 
 description = "Graphics 3D"
 
@@ -25,17 +25,6 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
 }
 
-// Map non-standard source directories (Maven used src/ and test/)
-sourceSets {
-    named("main") {
-        java.setSrcDirs(listOf("src"))
-        resources.setSrcDirs(emptyList<String>())
-    }
-    named("test") {
-        java.setSrcDirs(listOf("test"))
-        resources.setSrcDirs(emptyList<String>())
-    }
-}
 
 publishing {
     publications {
