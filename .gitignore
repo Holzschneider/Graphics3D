@@ -5,7 +5,5 @@ target
 .externalToolBuilders
 .gradle/
 .idea/
-gradle/
 build/
-gradlew
 gradlew.bat
