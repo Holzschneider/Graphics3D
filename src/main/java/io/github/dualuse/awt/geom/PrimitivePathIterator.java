@@ -22,7 +22,6 @@ class PrimitivePathIterator implements PathIterator {
 	final public static int LINE_STRIP= 10000-1;
 	final public static int LINE_LOOP = 10000;
 	
-	Random r = new Random(0);
 	public PrimitivePathIterator(float vertices[], int count, int type, AffineTransform at, Matrix4f m) {
 		this.vertices = vertices;
 		this.n = count+(type>2?count/type:0)+(type==LINE_LOOP?1:0);
