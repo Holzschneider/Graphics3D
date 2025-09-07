@@ -1,4 +1,5 @@
-import de.dualuse.commons.awt.Graphics3D;
+
+import io.github.dualuse.awt.Graphics3D;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,6 +13,23 @@ import java.io.IOException;
 import java.net.URL;
 
 public class TextureDemo {
+
+    public static double squareSizeOfBestFittingOrientedBoundingBox( final double ax, final double ay, final double bx, final double by, final double cx, final double cy, final double dx, final double dy ) {
+
+        final double mx = (ax + bx + cx + dx);
+        final double my = (ay + by + cy + dy);
+
+        final double culx = 4.*ax-mx, culy = 4.*ay-my, curx = 4.*bx-mx, cury = 4.*by-my;
+        final double cllx = 4.*cx-mx, clly = 4.*cy-my, clrx = 4.*dx-mx, clry = 4.*dy-my;
+
+        final double r00 = (culx*culx + curx*curx + cllx*cllx + clrx*clrx);
+        final double r01 = (culx*culy + curx*cury + cllx*clly + clrx*clry);
+        final double r11 = (culy*culy + cury*cury + clly*clly + clry*clry);
+
+        final double detA = (r00*r11-r01*r01)*0.000244140625;//  1/4096 == 1/(4^6) == 1/(2^12) == 1>>12;
+
+        return detA;
+    }
 
     public static void main(String[] args) throws IOException {
 

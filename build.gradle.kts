@@ -3,8 +3,8 @@ plugins {
     `maven-publish`
 }
 
-group = "de.dualuse"
-version = "1.2.0"
+group = "io.github.dualuse"
+version = "1.3.0"
 
 description = "Graphics 3D"
 

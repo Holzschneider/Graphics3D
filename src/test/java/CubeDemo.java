@@ -1,12 +1,9 @@
-import java.awt.BasicStroke;
-import static java.awt.BasicStroke.*;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.geom.RoundRectangle2D;
+import io.github.dualuse.awt.Graphics3D;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
 
-import de.dualuse.commons.awt.Graphics3D;
 
 public class CubeDemo extends JComponent {
 	private static final long serialVersionUID = 1L;

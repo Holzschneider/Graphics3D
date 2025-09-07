@@ -1,16 +1,14 @@
-package de.dualuse.commons.awt;
+package io.github.dualuse.awt;
 
-import java.awt.Rectangle;
-import java.awt.Shape;
+import io.github.dualuse.awt.geom.PrimitivePathIterator;
+
+import javax.vecmath.Matrix4f;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Arrays;
-
-import javax.vecmath.Matrix4f;
-
-import de.dualuse.commons.awt.geom.PrimitivePathIterator;
 
 
 public class Primitive implements Shape, Cloneable {

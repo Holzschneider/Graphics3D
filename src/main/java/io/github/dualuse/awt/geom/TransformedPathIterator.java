@@ -1,4 +1,4 @@
-package de.dualuse.commons.awt.geom;
+package io.github.dualuse.awt.geom;
 
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;

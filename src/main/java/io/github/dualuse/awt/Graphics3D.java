@@ -1,111 +1,66 @@
-package de.dualuse.commons.awt;
+package io.github.dualuse.awt;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Composite;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.Image;
-import java.awt.Paint;
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
+
+import io.github.dualuse.awt.geom.PrimitivePathIterator;
+import io.github.dualuse.awt.geom.ProjectiveTransform;
+
+import javax.vecmath.AxisAngle4d;
+import javax.vecmath.Matrix4d;
+import javax.vecmath.Matrix4f;
+import javax.vecmath.Vector4f;
+import java.awt.*;
 import java.awt.RenderingHints.Key;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Arc2D;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.Path2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.RoundRectangle2D;
+import java.awt.geom.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.awt.image.ImageObserver;
 import java.awt.image.RenderedImage;
 import java.awt.image.renderable.RenderableImage;
-import java.io.File;
-import java.io.IOException;
 import java.text.AttributedCharacterIterator;
 import java.util.ArrayDeque;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.vecmath.AxisAngle4d;
-import javax.vecmath.Matrix4d;
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Vector4f;
-
-import de.dualuse.commons.awt.geom.PrimitivePathIterator;
-import de.dualuse.commons.awt.geom.ProjectiveTransform;
-
 public class Graphics3D extends Graphics2D {
 	
-	
-	public static double squareSizeOfBestFittingOrientedBoundingBox( final double ax, final double ay, final double bx, final double by, final double cx, final double cy, final double dx, final double dy ) {
-		
-		final double mx = (ax + bx + cx + dx);
-		final double my = (ay + by + cy + dy);
-		
-		final double culx = 4.*ax-mx, culy = 4.*ay-my, curx = 4.*bx-mx, cury = 4.*by-my;
-		final double cllx = 4.*cx-mx, clly = 4.*cy-my, clrx = 4.*dx-mx, clry = 4.*dy-my;
-		
-		final double r00 = (culx*culx + curx*curx + cllx*cllx + clrx*clrx);
-		final double r01 = (culx*culy + curx*cury + cllx*clly + clrx*clry);
-		final double r11 = (culy*culy + cury*cury + clly*clly + clry*clry);
-		
-		final double detA = (r00*r11-r01*r01)*0.000244140625;//  1/4096 == 1/(4^6) == 1/(2^12) == 1>>12; 
-		
-		return detA;
-	}
-	
+
 	final private Graphics2D g;
 	
 	public Graphics3D(Graphics wrapped) {
 		this.g = (Graphics2D) wrapped.create();
 	}
 		
-	private Matrix4f modelviewprojection = new Matrix4f(
+	private final Matrix4f modelViewProjection = new Matrix4f(
 												1,0,0,0,
 												0,1,0,0,
 												0,0,1,0,
 												0,0,0,1	);
 	
 	public void getModelViewProjection(Matrix4d fillme) {
-		fillme.set(modelviewprojection);
+		fillme.set(modelViewProjection);
 	}
-	private ArrayDeque<Matrix4f> pushed = new ArrayDeque<Matrix4f>();
-	private ArrayDeque<Matrix4f> free = new ArrayDeque<Matrix4f>();
+	private final ArrayDeque<Matrix4f> pushed = new ArrayDeque<Matrix4f>();
+	private final ArrayDeque<Matrix4f> free = new ArrayDeque<Matrix4f>();
 	
 	public void pushTransform() {
 		Matrix4f m = free.poll();
 		if (m==null)
 			m = new Matrix4f();
 		
-		m.set(modelviewprojection);
+		m.set(modelViewProjection);
 		pushed.push(m);
 	}
 	
 	public void popTransform() {
 		Matrix4f m = pushed.poll();
-		modelviewprojection.set(m);
+		modelViewProjection.set(m);
 		free.push(m);
 	}
 
-	public float originX() { return modelviewprojection.m03/modelviewprojection.m33; };
-	public float originY() { return modelviewprojection.m13/modelviewprojection.m33; };
-	public float originZ() { return modelviewprojection.m23/modelviewprojection.m33; };
+	public float originX() { return modelViewProjection.m03/ modelViewProjection.m33; };
+	public float originY() { return modelViewProjection.m13/ modelViewProjection.m33; };
+	public float originZ() { return modelViewProjection.m23/ modelViewProjection.m33; };
 	
 	
 //	public float diffuse(float ax, float ay, float az) {
@@ -126,7 +81,7 @@ public class Graphics3D extends Graphics2D {
 	public boolean isVisible(double px, double py, double pz) {
 		final float ovecx=(float)px,ovecy=(float)py,ovecz=(float)pz,ovecw=1;
 
-		Matrix4f m = modelviewprojection;
+		Matrix4f m = modelViewProjection;
 		final float z = (m.m20 * ovecx + m.m21 * ovecy + m.m22 * ovecz + m.m23 * ovecw);
 		if (z<-1) return false;
 		final float ooow = 1f/(m.m30 * ovecx + m.m31 * ovecy + m.m32 * ovecz + m.m33 * ovecw);
@@ -142,7 +97,7 @@ public class Graphics3D extends Graphics2D {
 		final float nvecx = 1, nvecy=0, nvecz=0, nvecw=1;
 		final float mvecx = 0, mvecy=1, mvecz=0, mvecw=1;
 		
-		Matrix4f m = modelviewprojection;
+		Matrix4f m = modelViewProjection;
 		final float ooow = 1f/(m.m30 * ovecx + m.m31 * ovecy + m.m32 * ovecz + m.m33 * ovecw);
 		final float ox = (m.m00 * ovecx + m.m01 * ovecy + m.m02 * ovecz + m.m03 * ovecw)*ooow;
 		final float oy = (m.m10 * ovecx + m.m11 * ovecy + m.m12 * ovecz + m.m13 * ovecw)*ooow;
@@ -184,7 +139,7 @@ public class Graphics3D extends Graphics2D {
 	
 	private AffineTransform approximateTransform(float x, float y) {
 		Matrix4f n = new Matrix4f();
-		n.set(modelviewprojection);
+		n.set(modelViewProjection);
 		
 		Vector4f vp = new Vector4f(x,y,0,1), vx = new Vector4f(x+1,y,0,1), vy = new Vector4f(x,y+1,0,1);
 		
@@ -250,7 +205,7 @@ public class Graphics3D extends Graphics2D {
 	}
 	
 	public void translate(double tx, double ty, double tz) {
-		modelviewprojection.mul(
+		modelViewProjection.mul(
 				new Matrix4f(
 						1,0,0,(float)tx,
 						0,1,0,(float)ty,
@@ -261,11 +216,11 @@ public class Graphics3D extends Graphics2D {
 	public void rotate(double theta, double x, double y, double z) {
 		Matrix4f r = new Matrix4f();
 		r.set(new AxisAngle4d( x, y, z, theta));
-		modelviewprojection.mul( r );
+		modelViewProjection.mul( r );
 	}
 	
 	public void scale(double sx, double sy, double sz) {
-		modelviewprojection.mul(
+		modelViewProjection.mul(
 				new Matrix4f(
 						(float)sx,0,0,0,
 						0,(float)sy,0,0,
@@ -305,64 +260,64 @@ public class Graphics3D extends Graphics2D {
 	
 	public Point2D project(double x, double y) {
 		Vector4f v = new Vector4f((float)x,(float)y,0,1);
-		modelviewprojection.transform(v);
+		modelViewProjection.transform(v);
 		
 		return new Point2D.Float(v.x/v.w,v.y/v.w);
 	}
 	
 	public Point2D project(double x, double y, double z) {
 		Vector4f v = new Vector4f((float)x,(float)y,(float)z,1);
-		modelviewprojection.transform(v);
+		modelViewProjection.transform(v);
 		
 		return new Point2D.Float(v.x/v.w,v.y/v.w);
 	}
 	
 	public double projectX(double x, double y, double z) {
-		double x_ = modelviewprojection.m00*x+modelviewprojection.m01*y+modelviewprojection.m02*z+modelviewprojection.m03;
-		double w_ = modelviewprojection.m30*x+modelviewprojection.m31*y+modelviewprojection.m32*z+modelviewprojection.m33;
+		double x_ = modelViewProjection.m00*x+ modelViewProjection.m01*y+ modelViewProjection.m02*z+ modelViewProjection.m03;
+		double w_ = modelViewProjection.m30*x+ modelViewProjection.m31*y+ modelViewProjection.m32*z+ modelViewProjection.m33;
 		
 		return x_/w_;
 	}
 
 	public double projectY(double x, double y, double z) {
-		double y_ = modelviewprojection.m10*x+modelviewprojection.m11*y+modelviewprojection.m12*z+modelviewprojection.m13;
-		double w_ = modelviewprojection.m30*x+modelviewprojection.m31*y+modelviewprojection.m32*z+modelviewprojection.m33;
+		double y_ = modelViewProjection.m10*x+ modelViewProjection.m11*y+ modelViewProjection.m12*z+ modelViewProjection.m13;
+		double w_ = modelViewProjection.m30*x+ modelViewProjection.m31*y+ modelViewProjection.m32*z+ modelViewProjection.m33;
 		
 		return y_/w_;
 	}
 
 	public double projectZ(double x, double y, double z) {
-		double z_ = modelviewprojection.m20*x+modelviewprojection.m21*y+modelviewprojection.m22*z+modelviewprojection.m23;
-		double w_ = modelviewprojection.m30*x+modelviewprojection.m31*y+modelviewprojection.m32*z+modelviewprojection.m33;
+		double z_ = modelViewProjection.m20*x+ modelViewProjection.m21*y+ modelViewProjection.m22*z+ modelViewProjection.m23;
+		double w_ = modelViewProjection.m30*x+ modelViewProjection.m31*y+ modelViewProjection.m32*z+ modelViewProjection.m33;
 		
 		return z_/w_;
 	}
 
 	
 	public void viewport(int x, int y, int width, int height) {
-		modelviewprojection.mul(createMatrixWithViewport(x, y, width, height));
+		modelViewProjection.mul(createMatrixWithViewport(x, y, width, height));
 	}
 	
 	public void frustum(double left, double right, double bottom, double top, double nearVal, double farVal ) {
-		modelviewprojection.mul(createMatrixWithFrustum((float)left, (float)right, (float)bottom, (float)top, (float)nearVal, (float)farVal));
+		modelViewProjection.mul(createMatrixWithFrustum((float)left, (float)right, (float)bottom, (float)top, (float)nearVal, (float)farVal));
 	}
 	
 	
-	public void transform(Matrix4f transform) { modelviewprojection.mul(transform); }
+	public void transform(Matrix4f transform) { modelViewProjection.mul(transform); }
 	
-	public void translate(double tx, double ty) { modelviewprojection.mul(createMatrixWithTransform(AffineTransform.getTranslateInstance(tx, ty))); }
-	public void rotate(double theta) { modelviewprojection.mul(createMatrixWithTransform(AffineTransform.getRotateInstance(theta))); }
-	public void rotate(double theta, double x, double y) { modelviewprojection.mul(createMatrixWithTransform(AffineTransform.getRotateInstance(theta,x,y))); }
-	public void scale(double sx, double sy) { modelviewprojection.mul(createMatrixWithTransform(AffineTransform.getScaleInstance(sx, sy))); }
-	public void shear(double shx, double shy) { modelviewprojection.mul(createMatrixWithTransform(AffineTransform.getRotateInstance(shx, shy))); }
-	public void transform(AffineTransform Tx) { modelviewprojection.mul(createMatrixWithTransform(Tx)); }
-	public void transform(ProjectiveTransform Tx) { modelviewprojection.mul(Tx.getMatrix(new Matrix4f())); }
-	public void setTransform(AffineTransform Tx) { modelviewprojection.set(createMatrixWithTransform(Tx)); }
-	public void setTransform(ProjectiveTransform Tx) { modelviewprojection.set(Tx.getMatrix()); }
-	public ProjectiveTransform getTransform() { return new ProjectiveTransform(modelviewprojection); } 
+	public void translate(double tx, double ty) { modelViewProjection.mul(createMatrixWithTransform(AffineTransform.getTranslateInstance(tx, ty))); }
+	public void rotate(double theta) { modelViewProjection.mul(createMatrixWithTransform(AffineTransform.getRotateInstance(theta))); }
+	public void rotate(double theta, double x, double y) { modelViewProjection.mul(createMatrixWithTransform(AffineTransform.getRotateInstance(theta,x,y))); }
+	public void scale(double sx, double sy) { modelViewProjection.mul(createMatrixWithTransform(AffineTransform.getScaleInstance(sx, sy))); }
+	public void shear(double shx, double shy) { modelViewProjection.mul(createMatrixWithTransform(AffineTransform.getRotateInstance(shx, shy))); }
+	public void transform(AffineTransform Tx) { modelViewProjection.mul(createMatrixWithTransform(Tx)); }
+	public void transform(ProjectiveTransform Tx) { modelViewProjection.mul(Tx.getMatrix(new Matrix4f())); }
+	public void setTransform(AffineTransform Tx) { modelViewProjection.set(createMatrixWithTransform(Tx)); }
+	public void setTransform(ProjectiveTransform Tx) { modelViewProjection.set(Tx.getMatrix()); }
+	public ProjectiveTransform getTransform() { return new ProjectiveTransform(modelViewProjection); }
 	
-	public void draw(Shape s) { g.draw(new TransformedShape(modelviewprojection, s)); }
-	public void fill(Shape s) { g.fill(new TransformedShape(modelviewprojection, s)); }
+	public void draw(Shape s) { g.draw(new TransformedShape(modelViewProjection, s)); }
+	public void fill(Shape s) { g.fill(new TransformedShape(modelViewProjection, s)); }
 	
 	
 	final static float EPSILON = 0.005f; 
@@ -370,7 +325,7 @@ public class Graphics3D extends Graphics2D {
 		int W = im.getWidth(obs), H = im.getHeight(obs);
 
 		Matrix4f m = new Matrix4f();
-		m.set(modelviewprojection);
+		m.set(modelViewProjection);
 		m.mul(createMatrixWithTransform(xform));
 		AffineTransform at = new AffineTransform(), bt = g.getTransform();
 		
@@ -601,7 +556,7 @@ public class Graphics3D extends Graphics2D {
 	public Stroke getStroke() { return g.getStroke(); }
 	public void clip(Shape s) { g.clip(s); }
 	public FontRenderContext getFontRenderContext() { return g.getFontRenderContext(); }
-	public Graphics3D create() { Graphics3D g3 = new Graphics3D(g.create()); g3.modelviewprojection.set(modelviewprojection); return g3; }
+	public Graphics3D create() { Graphics3D g3 = new Graphics3D(g.create()); g3.modelViewProjection.set(modelViewProjection); return g3; }
 	public Color getColor() { return g.getColor(); }
 	public void setColor(Color c) { g.setColor(c); };
  	public void setPaintMode() { g.setPaintMode(); }
@@ -631,7 +586,7 @@ public class Graphics3D extends Graphics2D {
 			dz, 0, 1, tz,
 			0 , 0, 0,  1
 		);
-		n.mul(modelviewprojection, n);
+		n.mul(modelViewProjection, n);
 		
 		g.draw(new TransformedShape(n,new Line2D.Double(0,0,1,0))); 
 	}
@@ -675,7 +630,7 @@ public class Graphics3D extends Graphics2D {
 	}
 	
 	public void begin(int type) {
-		p = cached.reset(modelviewprojection, type);
+		p = cached.reset(modelViewProjection, type);
 	}
 
 	public void vertex(int x, int y) { p.addVertex(x, y, 0f);}
