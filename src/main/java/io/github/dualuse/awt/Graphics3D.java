@@ -400,8 +400,10 @@ public class Graphics3D extends Graphics2D {
 	int recursions = 0;
 	float PERSPECTIVE_RIM = 0, MAX_PERSPECTIVE_DEVIATION = 2, MAX_PERSPECTIVE_ERROR = MAX_PERSPECTIVE_DEVIATION*MAX_PERSPECTIVE_DEVIATION;
 	private void drawImageTiled(Image im, Matrix4f m, AffineTransform at, AffineTransform bt, int x1, int y1, int x2, int y2) {
-		
-		if (x1==x2 || y1==y2)
+        if (recursions>10)
+            return;
+
+        if (x1==x2 || y1==y2)
 			return;
 		
 		float ax = x1, ay = y1, bx = x2, by = y1, cx = x2, cy = y2, dx = x1, dy = y2;
