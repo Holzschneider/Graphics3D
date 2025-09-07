@@ -2,10 +2,13 @@ plugins {
     `java-library`
     `maven-publish`
     id("com.adarshr.test-logger") version "3.2.0"
+
+    signing
+    id("com.vanniktech.maven.publish") version "0.34.0"
 }
 
 group = "io.github.dualuse"
-version = "1.4.0"
+version = properties["version"].toString()
 
 description = "Graphics 3D"
 
@@ -31,6 +34,41 @@ tasks.test {
 
     testlogger {
         setTheme("standard")
+    }
+}
+
+
+mavenPublishing {
+    // Central Portal target
+    publishToMavenCentral()            // use publishToMavenCentral(true) to auto-release
+    signAllPublications()
+
+    coordinates(group.toString(), "Graphics3D", version.toString())
+    pom {
+        name.set("Graphics 3D")
+        description.set("A lightweight extension to java.awt.Graphics2D featuring OpenGL-style 3D transformations and primitives")
+        inceptionYear.set("2025")
+        url.set("https://github.com/dualuse/Graphics3D")
+
+        licenses {
+            license {
+                name = "GNU Lesser General Public License v3.0"
+                url = "https://www.gnu.org/licenses/lgpl-3.0.txt"
+                distribution = "repo"
+            }
+        }
+        developers {
+            developer {
+                id = "holzschneider"
+                name = "Philipp Holzschneider"
+                url = "https://github.com/holzschneider"
+            }
+        }
+        scm {
+            connection = "scm:git:git://github.com/dualuse/Graphics3D.git"
+            developerConnection = "scm:git:ssh://git@github.com:dualuse/Graphics3D.git"
+            url = "https://github.com/dualuse/Graphics3D"
+        }
     }
 }
 
@@ -64,7 +102,6 @@ publishing {
                     developerConnection = "scm:git:ssh://example.com/my-library.git"
                     url = "http://example.com/my-library/"
                 }
-            }
             }
         }
     }
