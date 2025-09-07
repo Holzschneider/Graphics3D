@@ -1,0 +1,14 @@
+Graphics3D
+Copyright (c) 2025 Philipp Holzschneider
+
+This product includes the Graphics3D library, licensed under the
+GNU Lesser General Public License v3.0 (LGPLv3).
+
+You may use this library in commercial and non-commercial software.
+If you modify the Graphics3D source code, you must distribute your
+modifications under the same license.
+
+Attribution:
+If Graphics3D is used as a dependency in your project, please include
+a reference to "Graphics3D" in your documentation, about page, or
+NOTICE file.

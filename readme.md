@@ -1,9 +1,8 @@
 Graphics3D
 ==========
-*a lightweight extension to java.awt.Graphics2D featuring opengl style 3D transformations and primitives*
+A lightweight extension to java.awt.Graphics2D featuring OpenGL-style 3D transformations and primitives.
 
-Requires JDK 1.6, and comes with soon-to-be-gone javax.vecmath dependency.
- 
+Project status: actively maintained. Target Java 8 (compiled via Gradle toolchains). No external vecmath dependency.
 
 In Short
 --------
@@ -51,73 +50,53 @@ Imagine a suspiciously familiar looking JComponents's paintComponent method like
 
 <img src="doc/demo.gif" />
 
+Recent releases
+---------------
+- 1.4.0 (2025-09-07)
+  - Removed javax.vecmath dependency; replaced with internal math (Matrix4f/Matrix4d/Vector4f/Vector4d, AxisAngle4d).
+  - Switched build to Gradle and reorganized sources into standard directories.
+  - Updated package path to io.github.dualuse.* and added texture demo.
+  - Perspective texture drawing: add recursion limit to improve performance and avoid runaway subdivision.
+  - Increased test coverage (math and core components).
+- 1.3.x (2017-01-18)
+  - Simplified project structure and migrated publishing to dualuse.github.io's Maven repo.
+  - Fixed deployment configuration and adjusted vecmath dependency version.
 
-Latest Release
--------
+How to add to your project (Gradle Kotlin DSL, Maven Central)
+------------------------------------------------------------
+Add Maven Central and the dependency:
 
-The current release 1.0.x. is the first to be considered finally stable with no changes made for a very long time.
+repositories {
+    mavenCentral()
+}
 
-Releases are deployed automatically to the deploy branch of this github repostory. 
-To add a dependency on graphics3d using maven, modify your *repositories* section to include the git based repository.
+dependencies {
+    // Replace 1.4.0 with the latest released version
+    implementation("io.github.dualuse:Graphics3D:1.4.0")
+}
 
-	<repositories>
-	 ...
-	  <repository>
-	    <id>dualuse repository</id>
-	    <name>dualuse's git based repo</name>
-	    <url>https://dualuse.github.io/maven/</url>
-	  </repository>
-	...
-	</repositories>
-	
-and modify your *dependencies* section to include the Graphics3d dependency
- 
-	  <dependencies>
-	  ...
-	  	<dependency>
-	  		<groupId>de.dualuse</groupId>
-	  		<artifactId>Graphics3D</artifactId>
-	  		<version>[1,)</version>
-	  	</dependency>
-	  ...
-	  </dependencies>
+How to compile
+--------------
+Prerequisites: JDK 8+.
 
-
-To add the repository and the dependency using gradle refer to this
-
-	repositories {
-	    maven {
-	        url "https://raw.githubusercontent.com/Holzschneider/Graphics3D/deploy/"
-	    }
-	}
-
-and this
-
-	dependencies {
-	  compile 'de.dualuse:Graphics3D:1.+'
-	}
-
-
-
-
-
-
-Build and wrapper
------------------
-If you prefer not to keep Gradle wrapper scripts in VCS, this project provides a task to generate them on demand.
-
-1) Using a locally installed Gradle, run:
-
-    gradle createWrapper
-
-This will generate gradlew/gradlew.bat and gradle/wrapper files for Gradle 8.14.2.
-
-2) Then build with the wrapper:
+Build everything (compile + tests):
 
     ./gradlew build
 
-Alternatively, you can build directly with your local Gradle:
+Run tests only:
 
-    gradle build
+    ./gradlew test
+
+Generate wrapper scripts again (if needed):
+
+    ./gradlew wrapper --gradle-version 8.14.2
+
+Contributing
+------------
+Contributions are welcome! Feel free to open issues and pull requests. Please run the test suite before submitting changes.
+
+License
+-------
+LGPL-3.0-or-later. See LICENSE and the header in each source file. Graphics3D is distributed in the hope that it will be useful, but without any warranty; see the GNU LGPL for details.
 
 
