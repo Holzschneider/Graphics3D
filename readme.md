@@ -79,6 +79,9 @@ Imagine a suspiciously familiar looking `JComponent`'s `paintComponent` method l
 
 Recent releases
 ---------------
+- 1.5.0 (2025-09-08)
+  - Release to Maven Central
+  - Removal of old CI/CD ymls
 - 1.4.0 (2025-09-07)
   - Removed `javax.vecmath` dependency; replaced with internal math (`Matrix4f`/`Matrix4d`/`Vector4f`/`Vector4d`, `AxisAngle4d`).
   - Switched build to Gradle and reorganized sources into standard directories.
